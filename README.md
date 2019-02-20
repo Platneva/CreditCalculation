@@ -27,4 +27,4 @@
 * Учет просрочки;
 * Отображение полной суммы выплат, суммы выплаченных процентов, "опережения платежей", остатка.
 
-![](https://drive.google.com/file/d/1jMGGddQAcSVhQBRduZvR7cordbxd3Smr/view?usp=sharing)
+![](https://github.com/YarDm/CreditCalculation/blob/dev/%D0%A0%D0%B8%D1%81%D1%83%D0%BD%D0%BE%D0%BA1.png)
