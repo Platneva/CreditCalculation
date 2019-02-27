@@ -1,4 +1,4 @@
-package model.calculation;
+package controller.calculation;
 
 import model.CreditCalculation;
 import model.CreditData;

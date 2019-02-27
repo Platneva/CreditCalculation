@@ -17,24 +17,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="800.0" prefWidth="995.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="800.0" prefWidth="995.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Файл">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#openAction" text="Open…" />
+            <MenuItem mnemonicParsing="false" onAction="#saveAction" text="Save" />
+            <MenuItem mnemonicParsing="false" onAction="#exitAction" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Настройки">
@@ -69,10 +60,10 @@
             <Label layoutX="57.0" layoutY="104.0" text="Процентная ставка" />
             <Label layoutX="57.0" layoutY="144.0" text="Дата получения кредита" />
             <Label layoutX="57.0" layoutY="184.0" text="Срок погашения (мес)" />
-            <TextField layoutX="232.0" layoutY="61.0" />
-            <Spinner layoutX="232.0" layoutY="100.0" />
-            <DatePicker layoutX="231.0" layoutY="140.0" prefHeight="25.0" prefWidth="149.0" />
-            <Spinner layoutX="232.0" layoutY="180.0" />
+            <TextField fx:id="creditSum" layoutX="232.0" layoutY="61.0" />
+            <Spinner fx:id="percents" layoutX="232.0" layoutY="100.0" />
+            <DatePicker fx:id="startDate" layoutX="231.0" layoutY="140.0" prefHeight="25.0" prefWidth="149.0" />
+            <Spinner fx:id="period" layoutX="232.0" layoutY="180.0" />
             <Label layoutX="463.0" layoutY="25.0" text="Как будем считать...">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -82,12 +73,18 @@
             <Label layoutX="464.0" layoutY="104.0" text="Платеж равными частями" />
             <Label layoutX="464.0" layoutY="140.0" text="Сумма" />
             <Label layoutX="464.0" layoutY="184.0" text="Обслуживание (%)" />
-            <RadioButton layoutX="676.0" layoutY="65.0" mnemonicParsing="false" />
-            <RadioButton layoutX="676.0" layoutY="104.0" mnemonicParsing="false" />
-            <Spinner layoutX="571.0" layoutY="136.0" />
-            <Spinner layoutX="571.0" layoutY="180.0" />
-            <Button layoutX="833.0" layoutY="96.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="135.0" text="Расчет" />
-            <Button layoutX="833.0" layoutY="317.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="135.0" text="Выход" />
+            <RadioButton fx:id="rBtn1" layoutX="676.0" layoutY="65.0" mnemonicParsing="false" />
+            <RadioButton fx:id="rBtn2" layoutX="676.0" layoutY="104.0" mnemonicParsing="false" />
+            <Spinner fx:id="firstPayment" layoutX="571.0" layoutY="136.0" />
+            <Spinner fx:id="servicePercent" layoutX="571.0" layoutY="180.0" />
+            <Button fx:id="calc" layoutX="833.0" layoutY="18.0" mnemonicParsing="false" onAction="#calcAction" prefHeight="128.0" prefWidth="135.0" text="Расчет">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font></Button>
+            <Button fx:id="exitBtn" layoutX="833.0" layoutY="317.0" mnemonicParsing="false" onAction="#exitAction" prefHeight="50.0" prefWidth="135.0" text="Выход">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
             <Label layoutX="62.0" layoutY="235.0" text="Расчетная информация по платежам">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -99,48 +96,47 @@
             <Label layoutX="403.0" layoutY="281.0" text="Основной платеж" />
             <Label layoutX="403.0" layoutY="307.0" text="Проценты на дату платежа" />
             <Label layoutX="403.0" layoutY="333.0" text="&quot;Опережение&quot; платежей" />
-            <Label layoutX="588.0" layoutY="307.0" text="0">
+            <Label fx:id="percentWOPayment" layoutX="588.0" layoutY="307.0" text="0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TableView layoutX="14.0" layoutY="399.0" prefHeight="369.0" prefWidth="964.0">
+            <TableView fx:id="tableView" layoutX="14.0" layoutY="399.0" prefHeight="369.0" prefWidth="964.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Месяц" />
-                <TableColumn prefWidth="75.0" text="Дата" />
-                  <TableColumn prefWidth="192.6667022705078" text="Остаток кредита" />
-                  <TableColumn prefWidth="191.33331298828125" text="Основной платеж" />
-                  <TableColumn prefWidth="128.00003051757812" text="Проценты" />
-                  <TableColumn prefWidth="150.66665649414062" text="Обслуживание" />
-                  <TableColumn prefWidth="149.99996948242188" text="Всего за платеж" />
+                <TableColumn fx:id="column1" prefWidth="75.0" text="Месяц" />
+                <TableColumn fx:id="column2" prefWidth="75.0" text="Дата" />
+                  <TableColumn fx:id="column3" prefWidth="192.6667022705078" text="Остаток кредита" />
+                  <TableColumn fx:id="column4" prefWidth="191.33331298828125" text="Основной платеж" />
+                  <TableColumn fx:id="column5" prefWidth="128.00003051757812" text="Проценты" />
+                  <TableColumn fx:id="column6" prefWidth="150.66665649414062" text="Обслуживание" />
+                  <TableColumn fx:id="column7" prefWidth="149.99996948242188" text="Всего за платеж" />
               </columns>
             </TableView>
-            <Label layoutX="588.0" layoutY="333.0" text="0">
+            <Label fx:id="paymentsFF" layoutX="588.0" layoutY="333.0" text="0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="588.0" layoutY="281.0" text="0">
+            <Label fx:id="paymentWOPercent" layoutX="588.0" layoutY="281.0" text="0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="227.0" layoutY="333.0" text="0">
+            <Label fx:id="remainder" layoutX="227.0" layoutY="333.0" text="0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="227.0" layoutY="307.0" text="0">
+            <Label fx:id="payedPercents" layoutX="227.0" layoutY="307.0" text="0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="228.0" layoutY="281.0" text="0">
+            <Label fx:id="fullCreditPrice" layoutX="228.0" layoutY="281.0" text="0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="833.0" layoutY="24.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="135.0" text="Режим ввода" />
             <Separator layoutX="774.0" layoutY="4.0" orientation="VERTICAL" prefHeight="399.0" prefWidth="16.0" />
             <Separator layoutX="-1.0" layoutY="216.0" prefHeight="17.0" prefWidth="783.0" />
             <Separator layoutX="421.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="226.0" prefWidth="7.0" />

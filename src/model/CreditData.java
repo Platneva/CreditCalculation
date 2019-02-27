@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
+ * Класс для хранения исходных данных для расчета кредита
  * @author Yar
  */
 public class CreditData {
@@ -15,6 +16,9 @@ public class CreditData {
     private LocalDate startDate;
     private CreditType type;
 
+    private BigDecimal firstContribution;
+    private BigDecimal creditServicePercent;
+
     private CreditData(CreditBuilder creditBuilder) {
         this.id = creditBuilder.id;
         this.amount = creditBuilder.amount;
@@ -22,6 +26,10 @@ public class CreditData {
         this.duration = creditBuilder.duration;
         this.startDate = creditBuilder.startDate;
         this.type = creditBuilder.type;
+
+        //Не обязательные поля - могут быть пустыми
+        this.firstContribution = creditBuilder.firstContribution;
+        this.creditServicePercent = creditBuilder.creditServicePercent;
     }
 
     public static class CreditBuilder {
@@ -32,6 +40,9 @@ public class CreditData {
         private int duration;
         private LocalDate startDate;
         private CreditType type;
+
+        private BigDecimal creditServicePercent;
+        private BigDecimal firstContribution;
 
         public CreditBuilder(int id){
             this.id = id;
@@ -62,6 +73,18 @@ public class CreditData {
             return this;
         }
 
+        public CreditBuilder firstContribution(BigDecimal val){
+            firstContribution = val;
+            return this;
+        }
+
+        public CreditBuilder creditServicePercent(BigDecimal val){
+            creditServicePercent = val;
+            return this;
+        }
+
+
+
         public CreditData build(){
             return new CreditData(this);
         }
@@ -89,5 +112,13 @@ public class CreditData {
 
     public CreditType getType() {
         return type;
+    }
+
+    public BigDecimal getFirstContribution() {
+        return firstContribution;
+    }
+
+    public BigDecimal getCreditServicePercent() {
+        return creditServicePercent;
     }
 }

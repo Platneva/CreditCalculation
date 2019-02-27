@@ -1,6 +1,9 @@
 package model;
 
+import javafx.collections.ObservableList;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Map;
 
 /**
@@ -10,24 +13,26 @@ public class CreditCalculation {
 
     private int calcID;
     private BigDecimal aCoefficent;
-    private Map <Integer, BigDecimal> monthPayments;
-    private BigDecimal fullAmount;
+    private ObservableList<MonthData> monthPayments; //Месячные платежи
+    private BigDecimal percents;
+    private BigDecimal fullAmount; //Полная стоимость
     private CreditData creditData;
 
     public CreditCalculation(CCBuilder ccBuilder) {
         calcID = ccBuilder.calcID;
         aCoefficent = ccBuilder.aCoefficent;
         monthPayments = ccBuilder.monthPayments;
+        percents = ccBuilder.percents;
         fullAmount = ccBuilder.fullAmount;
         creditData = ccBuilder.creditData;
     }
 
 
     public static class CCBuilder{
-
         private int calcID;
         private BigDecimal aCoefficent;
-        private Map <Integer, BigDecimal> monthPayments;
+        private ObservableList <MonthData> monthPayments;
+        private BigDecimal percents;
         private BigDecimal fullAmount;
         private CreditData creditData;
 
@@ -40,8 +45,13 @@ public class CreditCalculation {
             return this;
         }
 
-        public CCBuilder monthPayments(Map<Integer, BigDecimal> val){
+        public CCBuilder monthPayments(ObservableList<MonthData> val){
             monthPayments = val;
+            return this;
+        }
+
+        public CCBuilder percents(BigDecimal val){
+            percents = val;
             return this;
         }
 
@@ -68,9 +78,11 @@ public class CreditCalculation {
         return aCoefficent;
     }
 
-    public Map<Integer, BigDecimal> getMonthPayments() {
+    public ObservableList<MonthData> getMonthPayments() {
         return monthPayments;
     }
+
+    public BigDecimal getPercents() { return percents; }
 
     public BigDecimal getFullAmount() {
         return fullAmount;
