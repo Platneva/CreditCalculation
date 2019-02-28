@@ -3,7 +3,6 @@ package controller.XML;
 import model.CreditData;
 import model.CreditType;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -17,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
+ * Класс для чтения xml файла и преврщаения данных из файла в объект CreditData
  * @author Yar
  */
 public class XMLReader {

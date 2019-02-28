@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 
 /**
+ * Класс контроллера главного экрана main.fxml
  * @author Yar
  */
 public class MainController {
@@ -88,6 +89,7 @@ public class MainController {
     @FXML
     private TableColumn<MonthData, BigDecimal> column7;
 
+    //Кнопка расчета и действие по нажатию
     @FXML
     private Button calc;
     @FXML
@@ -111,6 +113,7 @@ public class MainController {
         initTableData();
     }
 
+    //Кнопка выхода и действие по нажатию
     @FXML
     private Button exitBtn;
     @FXML
@@ -120,6 +123,7 @@ public class MainController {
         }
     }
 
+    //Действия открытия для FileChooser
     @FXML
     private void openAction(ActionEvent ae){
         File file = fileChooser.showOpenDialog(stage);
@@ -149,6 +153,8 @@ public class MainController {
 
         initTableData();
     }
+
+    //Действие сохранения для FileChooser
     @FXML
     private void saveAction(ActionEvent ae){
         File file = fileChooser.showSaveDialog(stage);
@@ -295,6 +301,9 @@ public class MainController {
         stage = val;
     }
 
+    /**
+     * Метод загрзки данных в таблицу
+     */
     private void initTableData(){
         tData = calculation.getMonthPayments();
 

@@ -3,10 +3,9 @@ package model;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Map;
 
 /**
+ * Класс содержит выходные данные расчета кредита
  * @author Yar
  */
 public class CreditCalculation {

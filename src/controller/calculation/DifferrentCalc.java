@@ -8,9 +8,6 @@ import model.MonthData;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Класс для расчета кредита по дифференцированной схеме

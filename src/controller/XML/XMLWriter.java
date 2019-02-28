@@ -12,6 +12,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
 /**
+ * Класс создает новый xml файл
  * @author Yar
  */
 public class XMLWriter {

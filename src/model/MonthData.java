@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
+ * Класс содержит данные за каждый месяц выплат кредита
  * @author Yar
  */
 public class MonthData {

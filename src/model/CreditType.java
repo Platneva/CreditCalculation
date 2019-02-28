@@ -3,6 +3,7 @@ package model;
 import java.util.stream.Stream;
 
 /**
+ * Перечисление типов расчета кредита
  * @author Yar
  */
 public enum CreditType {
